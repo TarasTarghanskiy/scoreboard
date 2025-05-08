@@ -12,6 +12,16 @@ public record Match(
         int awayScore,
         Instant startTime
 ) {
+
+    public Match(UUID id, String homeTeam, String awayTeam, int homeScore, int awayScore, Instant startTime) {
+        this.id = id;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
+        this.startTime = startTime;
+    }
+
     int totalScore() {
         return homeScore + awayScore;
     }

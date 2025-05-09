@@ -27,8 +27,8 @@ public record Match(
      * Constructs a new {@code Match} instance and validates its parameters.
      *
      * @param id         the unique identifier for the match
-     * @param homeTeam   the name of the home team (non-null, valid format)
-     * @param awayTeam   the name of the away team (non-null, valid format)
+     * @param homeTeam   the name of the home team (non-null, must match {@code TEAM_NAME_REGEX}, typically letters, numbers, spaces, or hyphens)
+     * @param awayTeam   the name of the away team (non-null, must match {@code TEAM_NAME_REGEX}, typically letters, numbers, spaces, or hyphens)
      * @param homeScore  the home team's score (must be between 0 and {@code SCORE_LIMIT})
      * @param awayScore  the away team's score (must be between 0 and {@code SCORE_LIMIT})
      * @param startTime  the start time of the match (non-null)

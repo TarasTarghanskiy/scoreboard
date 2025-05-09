@@ -18,13 +18,13 @@ public class ScoreboardService {
 
     /**
      * Starts a new match with the given home and away teams.
-     * Throws an exception if the maximum number of matches is reached or
-     * if either team is already participating in an active match.
      *
-     * @param homeTeam the name of the home team
-     * @param awayTeam the name of the away team
+     * @param homeTeam the name of the home team (non-null, must match {@code TEAM_NAME_REGEX}, typically letters, numbers, spaces, or hyphens)
+     * @param awayTeam the name of the away team (non-null, must match {@code TEAM_NAME_REGEX}, typically letters, numbers, spaces, or hyphens)
      * @return the newly created {@link Match}
-     * @throws ScoreboardException if the match limit is reached or a team is already in a match
+     * @throws ScoreboardException      if the match limit is reached or a team is already in a match
+     * @throws NullPointerException     if any required field is null
+     * @throws IllegalArgumentException if team names are invalid, identical, or scores are out of bounds
      */
     public Match startMatch(String homeTeam, String awayTeam) {
         ScoreboardException.matchLimitReached(matches.size());
@@ -40,13 +40,13 @@ public class ScoreboardService {
 
     /**
      * Updates the score for a given match by ID.
-     * Throws an exception if the match is not found.
      *
      * @param matchId   the UUID of the match to update
-     * @param homeScore the new score for the home team
-     * @param awayScore the new score for the away team
+     * @param homeScore the new score for the home team (must be between 0 and {@code SCORE_LIMIT})
+     * @param awayScore the new score for the away team (must be between 0 and {@code SCORE_LIMIT})
      * @return the updated {@link Match}
-     * @throws ScoreboardException if the match is not found
+     * @throws ScoreboardException      if the match is not found
+     * @throws IllegalArgumentException if scores are out of bounds
      */
     public Match updateScore(UUID matchId, int homeScore, int awayScore) {
         Match match = matches.get(matchId);
@@ -58,7 +58,6 @@ public class ScoreboardService {
 
     /**
      * Finishes and removes the match with the given ID from the scoreboard.
-     * Throws an exception if the match is not found.
      *
      * @param matchId the UUID of the match to finish
      * @throws ScoreboardException if the match is not found

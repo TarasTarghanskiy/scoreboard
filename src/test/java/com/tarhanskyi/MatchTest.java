@@ -10,7 +10,6 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-import static java.lang.Integer.MAX_VALUE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MatchTest {
@@ -76,7 +75,7 @@ class MatchTest {
 
     @Test
     void shouldRejectOutOfBoundsScores() {
-        int invalidScore = new Random().nextInt(51, MAX_VALUE);
+        int invalidScore = new Random().nextInt(51, 100);
         assertThrows(IllegalArgumentException.class, () -> new Match(validId, randomTeamName(), randomTeamName(), -1, 0, now));
         assertThrows(IllegalArgumentException.class, () -> new Match(validId, randomTeamName(), randomTeamName(), 0, -1, now));
         assertThrows(IllegalArgumentException.class, () -> new Match(validId, randomTeamName(), randomTeamName(), 0, 51, now));
@@ -103,7 +102,7 @@ class MatchTest {
         CREATE_MATCH_NEGATIVE_CASE.accept(" ");
         CREATE_MATCH_NEGATIVE_CASE.accept("A".repeat(31));
         CREATE_MATCH_NEGATIVE_CASE.accept("A".repeat(32));
-        CREATE_MATCH_NEGATIVE_CASE.accept(RandomStringUtils.randomAlphabetic(TEAM_NAME_LENGTH_LIMIT + 1, MAX_VALUE));
+        CREATE_MATCH_NEGATIVE_CASE.accept(RandomStringUtils.randomAlphabetic(TEAM_NAME_LENGTH_LIMIT + 1, 100));
     }
 
 

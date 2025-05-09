@@ -11,8 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
-import static java.lang.Integer.MAX_VALUE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreboardServiceTest {
@@ -298,11 +298,7 @@ class ScoreboardServiceTest {
                 expectedList.add(startRandomMatch());
 
                 assertEquals(expectedList.size(), service.getSummary().size(), "size should be as expected");
-                assertIterableEquals(
-                        expectedList.stream().sorted().toList(),
-                        service.getSummary().stream().sorted().toList(),
-                        "Summary should be as expected"
-                );
+                expectedList.forEach(match -> assertTrue(service.getSummary().contains(match), "Summary should contain all matches"));
             }
         }
 

@@ -2,6 +2,8 @@ package com.tarhanskyi;
 
 import java.util.UUID;
 
+import static com.tarhanskyi.Constants.MATCHES_LIMIT;
+
 public class ScoreboardException extends RuntimeException {
     private ScoreboardException(String message) {
         super(message);
@@ -16,7 +18,7 @@ public class ScoreboardException extends RuntimeException {
     }
 
     static void matchLimitReached(int activeMatchesCount) {
-        if (activeMatchesCount == 100)
-            throw new ScoreboardException("Too many active matches, current: " + activeMatchesCount + ", limit: 100");
+        if (activeMatchesCount >= MATCHES_LIMIT)
+            throw new ScoreboardException("Too many active matches, current: " + activeMatchesCount + ", limit: " + MATCHES_LIMIT);
     }
 }

@@ -13,17 +13,11 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import static com.tarhanskyi.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreboardServiceTest {
-    private static final int MATCHES_LIMIT = 100;
     private ScoreboardService service;
-    /** Maximum allowed length for team names */
-    private final int TEAM_NAME_LENGTH_LIMIT = 30;
-    /** Team name pattern: letters, digits, spaces and special chars */
-    private final String TEAM_NAME_SYMBOL_LIMIT = "^[\\p{L}\\d\\s\\-'.&(),/]$";
-    /** Maximum allowed number for the team match scores */
-    private final int SCORE_LIMIT = 50;
 
     @BeforeEach
     void setUp() {
@@ -133,7 +127,7 @@ class ScoreboardServiceTest {
         @DisplayName("scenarios with wrong random symbols")
         void bad_createMatch_random() {
             String invalidSymbol = RandomStringUtils.random(1);
-            if (invalidSymbol.matches(TEAM_NAME_SYMBOL_LIMIT)) {
+            if (invalidSymbol.matches(TEAM_NAME_REGEX)) {
                 return;
             }
             CREATE_MATCH_NEGATIVE_CASE.accept(invalidSymbol);
@@ -177,7 +171,7 @@ class ScoreboardServiceTest {
             assertEquals(expected.awayTeam(), actual.awayTeam(), "team should be the same as the one passed in");
             assertEquals(homeScore, actual.homeScore(), "Home score should match expected value");
             assertEquals(awayScore, actual.awayScore(), "Home score should match expected value");
-            assertEquals(homeScore + awayScore, homeScore + awayScore, "Total score should be 0");
+            assertEquals(homeScore + awayScore, actual.totalScore(), "Total score should be 0");
             assertEquals(expected.startTime(), actual.startTime(), "Start time should be after now");
         }
 

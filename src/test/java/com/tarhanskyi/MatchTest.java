@@ -10,14 +10,13 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.function.Consumer;
 
+import static com.tarhanskyi.Constants.TEAM_NAME_LENGTH_LIMIT;
+import static com.tarhanskyi.Constants.TEAM_NAME_REGEX;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MatchTest {
     private final UUID validId = UUID.randomUUID();
     private final Instant now = Instant.now();
-    private final int TEAM_NAME_LENGTH_LIMIT = 30;
-    /** Team name pattern: letters, digits, spaces and special chars */
-    private final String TEAM_NAME_SYMBOL_LIMIT = "^[\\p{L}\\d\\s\\-'.&(),/]$";
     
     private String randomTeamName() {
         return RandomStringUtils.randomAlphabetic(1, TEAM_NAME_LENGTH_LIMIT);
@@ -121,7 +120,7 @@ class MatchTest {
     @DisplayName("scenarios with wrong random symbols")
     void bad_createMatch_random() {
         String invalidSymbol = RandomStringUtils.random(1);
-        if (invalidSymbol.matches(TEAM_NAME_SYMBOL_LIMIT)) {
+        if (invalidSymbol.matches(TEAM_NAME_REGEX)) {
             return;
         }
         CREATE_MATCH_NEGATIVE_CASE.accept(invalidSymbol);

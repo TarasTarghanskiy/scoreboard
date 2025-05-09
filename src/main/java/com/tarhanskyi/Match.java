@@ -4,6 +4,9 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.tarhanskyi.Constants.SCORE_LIMIT;
+import static com.tarhanskyi.Constants.TEAM_NAME_REGEX;
+
 
 public record Match(
         UUID id,
@@ -13,9 +16,6 @@ public record Match(
         int awayScore,
         Instant startTime
 ) {
-    private static final int MAX_SCORE = 50;
-    private static final String TEAM_NAME_REGEX = "^[\\p{L}\\d\\s-'.&(),/]{1,30}$";
-
     public Match {
         Objects.requireNonNull(id, "Match ID must not be null");
         Objects.requireNonNull(homeTeam, "Home team name must not be null");
@@ -33,10 +33,10 @@ public record Match(
         if (!awayTeam.trim().matches(TEAM_NAME_REGEX)) {
             throw new IllegalArgumentException("Invalid away team name: " + awayTeam);
         }
-        if (homeScore < 0 || homeScore > MAX_SCORE) {
+        if (homeScore < 0 || homeScore > SCORE_LIMIT) {
             throw new IllegalArgumentException("Home score out of range: " + homeScore);
         }
-        if (awayScore < 0 || awayScore > MAX_SCORE) {
+        if (awayScore < 0 || awayScore > SCORE_LIMIT) {
             throw new IllegalArgumentException("Away score out of range: " + awayScore);
         }
     }

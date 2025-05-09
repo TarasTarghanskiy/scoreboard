@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.tarhanskyi.Constants.ErrorMessages;
 import static com.tarhanskyi.Constants.SCORE_LIMIT;
 import static com.tarhanskyi.Constants.TEAM_NAME_REGEX;
 
@@ -17,27 +18,32 @@ public record Match(
         Instant startTime
 ) {
     public Match {
-        Objects.requireNonNull(id, "Match ID must not be null");
-        Objects.requireNonNull(homeTeam, "Home team name must not be null");
-        Objects.requireNonNull(awayTeam, "Away team name must not be null");
-        Objects.requireNonNull(startTime, "Start time must not be null");
+        Objects.requireNonNull(id, ErrorMessages.MATCH_ID);
+        Objects.requireNonNull(homeTeam, ErrorMessages.HOME_TEAM_NULL);
+        Objects.requireNonNull(awayTeam, ErrorMessages.AWAY_TEAM_NULL);
+        Objects.requireNonNull(startTime, ErrorMessages.START_TIME_NULL);
 
+        String homeTrimmed = homeTeam.trim();
+        String awayTrimmed = awayTeam.trim();
 
-        if (homeTeam.trim().equals(awayTeam.trim())) {
-            throw new IllegalArgumentException("Team names are the same: " + homeTeam + " and " + awayTeam);
+        if (homeTrimmed.equals(awayTrimmed)) {
+            throw new IllegalArgumentException(String.format(ErrorMessages.SAME_TEAMS, homeTeam));
         }
 
-        if (!homeTeam.trim().matches(TEAM_NAME_REGEX)) {
-            throw new IllegalArgumentException("Invalid home team name: " + homeTeam);
+        if (!homeTrimmed.matches(TEAM_NAME_REGEX)) {
+            throw new IllegalArgumentException(String.format(ErrorMessages.INVALID_HOME_TEAM, homeTeam));
         }
-        if (!awayTeam.trim().matches(TEAM_NAME_REGEX)) {
-            throw new IllegalArgumentException("Invalid away team name: " + awayTeam);
+
+        if (!awayTrimmed.matches(TEAM_NAME_REGEX)) {
+            throw new IllegalArgumentException(String.format(ErrorMessages.INVALID_AWAY_TEAM, awayTeam));
         }
+
         if (homeScore < 0 || homeScore > SCORE_LIMIT) {
-            throw new IllegalArgumentException("Home score out of range: " + homeScore);
+            throw new IllegalArgumentException(String.format(ErrorMessages.HOME_SCORE_RANGE, homeScore));
         }
+
         if (awayScore < 0 || awayScore > SCORE_LIMIT) {
-            throw new IllegalArgumentException("Away score out of range: " + awayScore);
+            throw new IllegalArgumentException(String.format(ErrorMessages.AWAY_SCORE_RANGE, awayScore));
         }
     }
 

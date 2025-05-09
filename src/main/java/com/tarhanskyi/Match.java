@@ -47,7 +47,7 @@ public record Match(
         }
     }
 
-    int totalScore() {
+    public int totalScore() {
         return homeScore + awayScore;
     }
 

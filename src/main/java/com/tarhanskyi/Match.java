@@ -45,11 +45,11 @@ public record Match(
         return homeScore + awayScore;
     }
 
-    public static Match start(String homeTeam, String awayTeam) {
+    static Match start(String homeTeam, String awayTeam) {
         return new Match(UUID.randomUUID(), homeTeam, awayTeam, 0, 0, Instant.now());
     }
 
-    public static Match updateScore(Match match, int homeScore, int awayScore) {
+    static Match updateScore(Match match, int homeScore, int awayScore) {
         return new Match(
                 match.id(),
                 match.homeTeam(),

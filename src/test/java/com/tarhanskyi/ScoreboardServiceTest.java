@@ -13,8 +13,16 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import static com.tarhanskyi.Constants.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.tarhanskyi.Constants.TEAM_NAME_LENGTH_LIMIT;
+import static com.tarhanskyi.Constants.SCORE_LIMIT;
+import static com.tarhanskyi.Constants.MATCHES_LIMIT;
+import static com.tarhanskyi.Constants.TEAM_NAME_REGEX;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Tests for ScoreboardService.java")
 class ScoreboardServiceTest {

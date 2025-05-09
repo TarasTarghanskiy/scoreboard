@@ -12,7 +12,9 @@ import java.util.function.Consumer;
 
 import static com.tarhanskyi.Constants.TEAM_NAME_LENGTH_LIMIT;
 import static com.tarhanskyi.Constants.TEAM_NAME_REGEX;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @DisplayName("Tests for Match.java")
 class MatchTest {

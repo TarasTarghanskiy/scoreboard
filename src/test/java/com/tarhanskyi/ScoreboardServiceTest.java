@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import static com.tarhanskyi.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Tests for ScoreboardService.java")
 class ScoreboardServiceTest {
     private ScoreboardService service;
 

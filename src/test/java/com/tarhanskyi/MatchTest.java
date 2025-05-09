@@ -14,6 +14,7 @@ import static com.tarhanskyi.Constants.TEAM_NAME_LENGTH_LIMIT;
 import static com.tarhanskyi.Constants.TEAM_NAME_REGEX;
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Tests for Match.java")
 class MatchTest {
     private final UUID validId = UUID.randomUUID();
     private final Instant now = Instant.now();

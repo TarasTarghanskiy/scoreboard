@@ -101,11 +101,8 @@ class MatchTest {
         CREATE_MATCH_NEGATIVE_CASE.accept("⚽");
         CREATE_MATCH_NEGATIVE_CASE.accept(null);
         CREATE_MATCH_NEGATIVE_CASE.accept(" ");
-        CREATE_MATCH_NEGATIVE_CASE.accept(randomTeamName() + " ");
-        CREATE_MATCH_NEGATIVE_CASE.accept(randomTeamName() + "  ");
-        CREATE_MATCH_NEGATIVE_CASE.accept(" " + randomTeamName());
-        CREATE_MATCH_NEGATIVE_CASE.accept("  " + randomTeamName());
-        CREATE_MATCH_NEGATIVE_CASE.accept(randomTeamName() + randomTeamName());
+        CREATE_MATCH_NEGATIVE_CASE.accept("A".repeat(31));
+        CREATE_MATCH_NEGATIVE_CASE.accept("A".repeat(32));
         CREATE_MATCH_NEGATIVE_CASE.accept(RandomStringUtils.randomAlphabetic(TEAM_NAME_LENGTH_LIMIT + 1, MAX_VALUE));
     }
 
@@ -115,6 +112,10 @@ class MatchTest {
     void bad_createMatch_same() {
         String same = randomTeamName();
         assertThrows(RuntimeException.class, () -> Match.start(same, same), "Same team name.");
+        assertThrows(RuntimeException.class, () -> Match.start(same + " ", same), "Same team name.");
+        assertThrows(RuntimeException.class, () -> Match.start(same + "  ", same), "Same team name.");
+        assertThrows(RuntimeException.class, () -> Match.start(same, same + " "), "Same team name.");
+        assertThrows(RuntimeException.class, () -> Match.start(same, same + "  "), "Same team name.");
     }
 
     @RepeatedTest(1_000)
